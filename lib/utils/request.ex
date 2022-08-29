@@ -29,7 +29,12 @@ defmodule StarkBank.Utils.Request do
       :httpc.request(
         method,
         get_request_params(user, url, JSON.encode!(payload)),
-        [],
+        [
+          ssl: [
+            verify: :verify_peer,
+            cacertfile: CAStore.file_path()
+          ]
+        ],
         []
       )
 
